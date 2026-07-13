@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>눈이 행복한 영화, 웨스 앤더슨의 세계</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Elegant Serif, Clean Sans-Serif, Cute Playful font and Futura-equivalent 'League Spartan' -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif+KR:wght@300;500;700&family=Gowun+Batang:wght@400;700&family=League+Spartan:wght@800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome for Vintage Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom CSS for Wes Anderson styles and animations -->
+  <style>
+    :root {
+      --mendis-pink: #F5C3C8;
+      --mendis-pink-dark: #E4A1A9;
+      --grand-blue: #3E6B89;
+      --grand-blue-light: #8FB5CD;
+      --darjeeling-yellow: #E5AD35;
+      --darjeeling-cream: #FAF6EE;
+      --wes-dark: #2C1E21;
+      --wes-accent: #C84B31;
+      
+      /* Recommended Vintage Butter Yellow matching image_f05394.jpg */
+      --vintage-yellow: #F4CD5E;
+      
+      /* Fantastic Mr. Fox Palette */
+      --fox-orange: #D37222;
+      --fox-amber: #E5AD35;
+      --fox-dark: #2F1B10;
+      --fox-cream: #FBEFDF;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Gowun Batang', 'Noto Serif KR', serif;
+      background-color: var(--darjeeling-cream);
+      color: var(--wes-dark);
+      overflow-x: hidden;
+    }
+
+    .font-title {
+      font-family: 'DM Serif Display', 'Gowun Batang', serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Wes Anderson Signature Futura Bold Aesthetic */
+    .font-futura {
+      font-family: 'League Spartan', 'Montserrat', sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Cinematic Frame shadow & border styling */
+    .wes-border {
+      border: 3px solid var(--wes-dark);
+    }
+    
+    .wes-shadow {
+      box-shadow: 8px 8px 0px var(--wes-dark);
+    }
+
+    .wes-shadow-sm {
+      box-shadow: 4px 4px 0px var(--wes-dark);
+    }
+
+    /* Perfect Symmetry Grid Lines for Interactive Mode */
+    #symmetry-line {
+      display: none;
+      pointer-events: none;
+    }
+
+    /* Custom Scrollbar for Retro feeling */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--darjeeling-cream);
+      border-left: 2px solid var(--wes-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--mendis-pink);
+      border: 3px solid var(--darjeeling-cream);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--mendis-pink-dark);
+    }
+
+    /* Interactive Flip Card */
+    .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Pulsing & Floating Animations */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(0.5deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .animate-float {
+      animation: float 4.5s ease-in-out infinite;
+    }
+    
+    /* Shelf item hover effects */
+    .cabinet-item {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .cabinet-item:hover {
+      transform: scale(1.1) translateY(-10px);
+      filter: drop-shadow(0 10px 8px rgba(0,0,0,0.15));
+    }
+
+    .retro-quote-box {
+      border: 1.5px solid var(--mendis-pink-dark);
+      background-color: rgba(245, 195, 200, 0.12);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-top: 0.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.75;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #2C1A11;
+      letter-spacing: -0.015em;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+    }
+    .retro-quote-box::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px dashed rgba(228, 161, 169, 0.6);
+      pointer-events: none;
+      border-radius: 6px;
+    }
+
+    /* Aspect ratio transitions */
+    .aspect-transition {
+      transition: max-width 0.6s ease-in-out, aspect-ratio 0.6s ease-in-out;
+    }
+
+    /* --- MENDL'S BOX UNWRAPPING ANIMATIONS --- */
+    .mendl-box-container {
+      perspective: 800px;
+      transition: all 0.5s ease;
+    }
+    
+    /* Box Lid animation */
+    .mendl-lid {
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+      transform-origin: top;
+    }
+    .mendl-box-container.is-open .mendl-lid {
+      transform: translateY(-50px) rotateX(45deg) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Ribbon animation */
+    .mendl-ribbon {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    }
+    .mendl-box-container.is-open .mendl-ribbon {
+      transform: translateY(80px) rotate(25deg) scale(0.8);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Cake reveal animation - 정면에서 돋보이도록 조정 */
+    .mendl-cake {
+      transform: scale(0) translateY(40px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+      transform-origin: bottom center;
+      z-index: 35;
+    }
+    .mendl-box-container.is-open .mendl-cake {
+      transform: scale(0.95) translateY(-18px);
+      opacity: 1;
+    }
+
+    /* Sparkle Star Animations */
+    @keyframes sparkle-pulse {
+      0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.3; }
+      50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+    }
+    .sparkle-star {
+      animation: sparkle-pulse 2s infinite ease-in-out;
+    }
+
+    /* --- CINEMATIC SVG ANIMATION KEYFRAMES --- */
+    /* Snow drifting for Budapest */
+    @keyframes drift-snow {
+      0% { transform: translateY(-10px) translateX(0); }
+      50% { transform: translateY(150px) translateX(15px); }
+      100% { transform: translateY(300px) translateX(-10px); }
+    }
+    .snow-particle {
+      animation: drift-snow 8s infinite linear;
+    }
+    /* Cable Car slide */
+    @keyframes cable-car-move {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(80px, -45px); }
+    }
+    .cable-car {
+      animation: cable-car-move 12s infinite ease-in-out;
+    }
+    /* Light Pulse */
+    @keyframes light-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; fill: #FFF275; }
+    }
+    .hotel-window {
+      animation: light-glow 3s infinite ease-in-out;
+    }
+
+    /* Train scrolling landscape for Darjeeling */
+    @keyframes scroll-bg {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-400px); }
+    }
+    .parallax-hills {
+      animation: scroll-bg 20s infinite linear;
+    }
+    .parallax-mountains {
+      animation: scroll-bg 45s infinite linear;
+    }
+    /* Train Jolt Animation */
+    @keyframes train-jolt {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+    .moving-train {
+      animation: train-jolt 0.6s infinite ease-in-out;
+    }
+    /* Steam Puff Animation */
+    @keyframes steam-puff {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0.8; }
+      50% { transform: translate(-30px, -30px) scale(1.2); opacity: 0.4; }
+      100% { transform: translate(-60px, -50px) scale(1.8); opacity: 0; }
+    }
+    .steam-puff-1 { animation: steam-puff 2s infinite ease-out; }
+    .steam-puff-2 { animation: steam-puff 2s infinite ease-out; animation-delay: 0.7s; }
+    .steam-puff-3 { animation: steam-puff 2s infinite ease-out; animation-delay: 1.4s; }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <!-- Symmetry Guidelines (Toggleable Overlay) -->
+  <div id="symmetry-line" class="fixed inset-0 z-50 flex justify-center pointer-events-none">
+    <div class="h-full w-[2px] bg-red-500 bg-opacity-60 relative">
+      <span class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md whitespace-nowrap">
+        대칭 분석 가이드라인 활성화됨
+      </span>
+    </div>
+    <!-- Horizontal Crosshair -->
+    <div class="absolute inset-y-1/2 left-0 w-full h-[1px] bg-red-400 bg-opacity-30"></div>
+  </div>
+
+  <!-- Navigation Header (Symmetrical, elegant structure) -->
+  <header class="border-b-4 border-[var(--wes-dark)] bg-[var(--darjeeling-cream)] sticky top-0 z-40 px-4 md:px-8 py-3 transition-all duration-300">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      
+      <!-- Left side of Symmetry (Symmetric spacer/link) -->
+      <div class="hidden md:flex items-center space-x-6 text-sm font-semibold text-[var(--wes-dark)]">
+        <a href="#intro" class="hover:text-[var(--wes-accent)] transition-colors duration-200">INTRO</a>
+        <a href="#appeal" class="hover:text-[var(--wes-accent)] transition-colors duration-200">CHARM</a>
+      </div>
+
+      <!-- Centered Vintage Emblem Logo -->
+      <a href="#" class="mx-auto md:mx-0 flex flex-col items-center justify-center text-center group">
+        <span class="text-xs tracking-[0.25em] text-[var(--wes-accent)] font-bold uppercase transition-transform group-hover:scale-105">WES ANDERSON</span>
+        <h1 class="font-title text-xl md:text-2xl font-bold text-[var(--wes-dark)] uppercase leading-none mt-0.5">THE GRAND CINEPHILE</h1>
+      </a>
+
+      <!-- Right side of Symmetry (Symmetric spacer/link) -->
+      <div class="hidden md:flex items-center space-x-6 text-sm font-semibold text-[var(--wes-dark)]">
+        <a href="#gallery" class="hover:text-[var(--wes-accent)] transition-colors duration-200">MOMENTS</a>
+        <a href="#cabinet" class="hover:text-[var(--wes-accent)] transition-colors duration-200">CURIOSITIES</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Interactive Floater Tool Box (Symmetry toggle) -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3">
+    <!-- Symmetry Toggle Button -->
+    <button onclick="toggleSymmetryLine()" class="bg-white hover:bg-[var(--mendis-pink)] text-[var(--wes-dark)] wes-border wes-shadow-sm font-bold text-xs px-4 py-3 rounded-full flex items-center space-x-2 transition-all duration-300 transform active:scale-95" title="웨스앤더슨의 핵심인 '완벽한 대칭'을 실시간으로 확인해보세요!">
+      <i class="fa-solid fa-arrows-left-right text-[var(--wes-accent)]"></i>
+      <span class="hidden md:inline">대칭선 보기</span>
+    </button>
+  </div>
+
+  <!-- SECTION 1: HERO - Grand Budapest Hotel themed aesthetic introduction -->
+  <section id="hero" class="relative overflow-hidden pt-12 pb-16 px-4 md:px-8 border-b-4 border-[var(--wes-dark)] flex flex-col items-center justify-center text-center min-h-[95vh] bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(245, 195, 200, 0.72), rgba(245, 195, 200, 0.72)), url('image_e5807b.png');">
+    
+    <!-- Retro Decorative Frame -->
+    <div class="absolute inset-4 md:inset-8 border border-[var(--wes-dark)] pointer-events-none opacity-20"></div>
+    <div class="absolute inset-6 md:inset-12 border-2 border-[var(--wes-dark)] pointer-events-none opacity-15"></div>
+
+    <div class="max-w-4xl mx-auto flex flex-col items-center justify-center z-10 w-full">
+      
+      <!-- Translucent Vintage Passport Card to guarantee absolute readability -->
+      <div class="bg-[var(--darjeeling-cream)] bg-opacity-95 border-4 border-[var(--wes-dark)] rounded-xl p-6 md:p-10 wes-shadow max-w-2xl w-full mb-8 relative">
+        <!-- Ticket Border Details -->
+        <div class="absolute top-2 left-2 right-2 bottom-2 border border-dashed border-[var(--wes-dark)] pointer-events-none opacity-40"></div>
+        
+        <!-- Arched Header Emblem (Perfect match to 폰트_2.jpg and color of image_f05394.jpg) -->
+        <div class="w-full max-w-sm mx-auto mb-1 flex flex-col items-center overflow-visible">
+          <svg viewBox="0 0 400 115" class="w-full overflow-visible select-none">
+            <!-- Curved path matching the exact arc of the reference font image -->
+            <path id="archPath" d="M 40 100 Q 200 12 360 100" fill="none" />
+            <text class="font-futura fill-[var(--vintage-yellow)] stroke-[var(--wes-dark)]" style="font-size: 34px; font-weight: 900; letter-spacing: 0.05em; stroke-width: 6px; stroke-linejoin: round; paint-order: stroke fill;">
+              <textPath href="#archPath" startOffset="50%" text-anchor="middle">내가 가장 좋아하는 영화</textPath>
+            </text>
+          </svg>
+          <span class="text-[10px] tracking-[0.25em] font-black text-[var(--wes-dark)] opacity-70 uppercase -mt-5 mb-5">
+            아이코닉 필름 메이커
+          </span>
+        </div>
+
+        <!-- Main Symmetrical Title in Bold Futura-like geometric Font (League Spartan) -->
+        <h2 class="font-futura text-4xl sm:text-5xl md:text-6xl font-black tracking-normal text-[var(--wes-dark)] leading-none mt-2 mb-4 select-none">
+          THE GRAND <br>
+          <span class="text-[var(--mendis-pink)] text-4xl sm:text-5xl md:text-6xl font-black block mt-2 tracking-wide stroke-fill-effect" style="-webkit-text-stroke: 2.5px var(--wes-dark); paint-order: stroke fill; text-shadow: 4px 4px 0px var(--wes-dark);">BUDAPEST</span> 
+          HOTEL
+        </h2>
+
+        <!-- Symmetrical Line Divider with Diamond Center -->
+        <div class="w-full max-w-md flex items-center my-6 justify-center mx-auto">
+          <div class="h-[2px] bg-[var(--wes-dark)] flex-grow"></div>
+          <div class="mx-3 text-[var(--wes-accent)]"><i class="fa-solid fa-hotel text-lg"></i></div>
+          <div class="h-[2px] bg-[var(--wes-dark)] flex-grow"></div>
+        </div>
+
+        <!-- The Catchphrase & Subheading (Perfect flow to avoid overlap) -->
+        <div class="px-2">
+          <p class="font-title text-2xl sm:text-3xl italic text-[var(--wes-dark)] mb-4 font-bold">
+            " 눈이 행복한 영화 "
+          </p>
+          <p class="text-sm sm:text-base font-semibold text-[var(--wes-dark)] leading-relaxed max-w-lg mx-auto">
+            제가 가장 좋아하는 감독, 웨스 앤더슨의 환상적인 세계로 초대합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero Graphic Area: Interactive Unwrapping Mendl's Box with generous margins to avoid overlay issues -->
+      <div class="w-full max-w-xs mt-16 relative px-4 flex flex-col items-center">
+        <!-- Pulse Indicator for Click -->
+        <div id="mendl-tip" class="mb-6 text-[11px] font-black tracking-widest text-[var(--wes-dark)] bg-white px-4 py-1.5 rounded-full border-2 border-[var(--wes-dark)] shadow animate-bounce cursor-pointer select-none z-30" onclick="toggleMendlBoxOpen()">
+          🎁 상자를 탭해서 열어보세요!
+        </div>
+
+        <!-- Interactive Box Wrapper -->
+        <div id="mendl-interactive-container" class="mendl-box-container w-44 h-44 relative cursor-pointer select-none mt-2" onclick="toggleMendlBoxOpen()">
+          
+          <!-- Cake Reveal Group (Unified Mendl's Pink Layers for elegant look) -->
+          <div class="mendl-cake absolute inset-0 flex flex-col items-center justify-center">
+            <!-- 3D Star Sparkles around the cake -->
+            <svg class="absolute w-full h-full pointer-events-none" viewBox="0 0 100 100">
+              <path class="sparkle-star" d="M15,20 L17,25 L22,25 L18,28 L20,33 L15,30 L10,33 L12,28 L8,25 L13,25 Z" fill="var(--darjeeling-yellow)"/>
+              <path class="sparkle-star" style="animation-delay: 0.5s;" d="M80,30 L81.5,34 L85,34 L82,36 L83.5,40 L80,38 L76.5,40 L78,36 L75,34 L78.5,34 Z" fill="var(--mendis-pink-dark)"/>
+              <path class="sparkle-star" style="animation-delay: 1s;" d="M25,80 L26,83 L29,83 L27,85 L28,88 L25,86 L22,88 L23,85 L21,83 L24,83 Z" fill="var(--grand-blue-light)"/>
+            </svg>
+
+            <!-- Gorgeous SVG Courtesan au Chocolat - Unified to Cohesive Pinks -->
+            <svg class="w-28 h-28 drop-shadow-lg" viewBox="0 0 100 100" fill="none">
+              <!-- Bottom Choux (Elegant Soft Pink Icing) -->
+              <ellipse cx="50" cy="74" rx="26" ry="15" fill="#ECA1A5" stroke="var(--wes-dark)" stroke-width="2.5"/>
+              <path d="M26,73 C30,85 70,85 74,73" stroke="var(--wes-dark)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M30,71 C34,75 42,75 46,71" stroke="#FAF6EE" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M54,71 C58,75 66,75 70,71" stroke="#FAF6EE" stroke-width="1.5" stroke-linecap="round"/>
+
+              <!-- Middle Choux (Charming Pastel Pink Icing) -->
+              <ellipse cx="50" cy="52" rx="19" ry="11" fill="#F4BAC1" stroke="var(--wes-dark)" stroke-width="2.5"/>
+              <path d="M32,51 C35,60 65,60 68,51" stroke="var(--wes-dark)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M36,50 C40,53 45,53 49,50" stroke="#FAF6EE" stroke-width="1.5" stroke-linecap="round"/>
+
+              <!-- Top Choux (Delicate Light Pink Icing) -->
+              <ellipse cx="50" cy="33" rx="13" ry="8" fill="#FAD1D3" stroke="var(--wes-dark)" stroke-width="2.5"/>
+              <path d="M38,32 C40,38 60,38 62,32" stroke="var(--wes-dark)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M41,31 C44,33 47,33 50,31" stroke="#FAF6EE" stroke-width="1.5" stroke-linecap="round"/>
+
+              <!-- Chocolate/Cream Stars/Buttercream Fillings in between layers -->
+              <circle cx="50" cy="63" r="4" fill="#603813" stroke="var(--wes-dark)" stroke-width="1.5"/>
+              <circle cx="41" cy="64" r="3" fill="#FAF6EE" stroke="var(--wes-dark)" stroke-width="1.5"/>
+              <circle cx="59" cy="64" r="3" fill="#FAF6EE" stroke="var(--wes-dark)" stroke-width="1.5"/>
+              
+              <circle cx="50" cy="42" r="3.5" fill="#603813" stroke="var(--wes-dark)" stroke-width="1.5"/>
+              <circle cx="43" cy="43" r="2.5" fill="#FAF6EE" stroke="var(--wes-dark)" stroke-width="1.5"/>
+              <circle cx="57" cy="43" r="2.5" fill="#FAF6EE" stroke="var(--wes-dark)" stroke-width="1.5"/>
+
+              <!-- Top cocoa bean or little star decoration -->
+              <circle cx="50" cy="22" r="3" fill="#FAF6EE" stroke="var(--wes-dark)" stroke-width="2"/>
+              <path d="M50,18 L50,12" stroke="var(--wes-dark)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="50" cy="11" r="2" fill="#603813" stroke="var(--wes-dark)" stroke-width="1"/>
+            </svg>
+          </div>
+
+          <!-- Mendl's Box Base (Sits in front) -->
+          <div class="absolute inset-0 bg-[#FFF4F2] border-4 border-[var(--wes-dark)] rounded-2xl wes-shadow flex flex-col items-center justify-end pb-3 z-20">
+            <!-- Blue ribbon vertical / horizontal on base -->
+            <div class="mendl-ribbon absolute inset-x-0 bottom-0 top-0 w-4 bg-[var(--grand-blue)] mx-auto border-l-2 border-r-2 border-[var(--wes-dark)]"></div>
+            <div class="mendl-ribbon absolute inset-y-0 left-0 right-0 h-4 bg-[var(--grand-blue)] my-auto border-t-2 border-b-2 border-[var(--wes-dark)]"></div>
+
+            <!-- Cute Symmetrical Label on Box Center -->
+            <div class="bg-[#FFF4F2] px-3 py-1.5 border-2 border-[var(--wes-dark)] rounded z-30 flex flex-col items-center justify-center">
+              <span class="text-[10px] font-futura tracking-widest text-[var(--wes-dark)] leading-none">MENDL'S</span>
+            </div>
+            <!-- Tiny ribbon knot on bottom edge -->
+            <div class="mendl-ribbon w-6 h-1.5 bg-[var(--grand-blue)] border border-[var(--wes-dark)] absolute bottom-0 z-30"></div>
+          </div>
+
+          <!-- Mendl's Box Lid -->
+          <div class="mendl-lid absolute -top-5 left-[-4px] right-[-4px] h-12 bg-[#F8BAC1] border-4 border-[var(--wes-dark)] rounded-t-xl z-40 flex items-center justify-center">
+            <div class="absolute inset-x-0 top-0 bottom-0 w-4 bg-[var(--grand-blue)] mx-auto border-l-2 border-r-2 border-[var(--wes-dark)]"></div>
+            <!-- Symmetrical Bow on Top Lid -->
+            <svg class="mendl-ribbon absolute -top-4 w-12 h-6" viewBox="0 0 60 30">
+              <path d="M15,15 C5,0 25,0 30,12 C35,0 55,0 45,15" fill="none" stroke="var(--grand-blue)" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="30" cy="12" r="4.5" fill="var(--grand-blue)" stroke="var(--wes-dark)" stroke-width="2"/>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Arrow Down to Next Section -->
+      <a href="#intro" class="mt-12 text-[var(--wes-dark)] hover:text-[var(--wes-accent)] transition-all transform hover:scale-110">
+        <p class="text-xs font-bold tracking-widest uppercase mb-1">SCROLL TO ENTER</p>
+        <i class="fa-solid fa-chevron-down text-base animate-bounce"></i>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: INTRODUCTION -->
+  <section id="intro" class="py-20 px-4 md:px-8 bg-[var(--darjeeling-cream)] border-b-4 border-[var(--wes-dark)] text-center relative">
+    <div class="absolute top-10 left-10 text-[var(--grand-blue-light)] opacity-30 text-5xl hidden lg:block"><i class="fa-solid fa-quote-left"></i></div>
+    <div class="absolute bottom-10 right-10 text-[var(--grand-blue-light)] opacity-30 text-5xl hidden lg:block"><i class="fa-solid fa-quote-right"></i></div>
+
+    <div class="max-w-3xl mx-auto">
+      <span class="text-xs tracking-[0.3em] font-extrabold text-[var(--wes-accent)] uppercase">THE ESSENCE OF WES ANDERSON</span>
+      <h3 class="font-title text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--wes-dark)] mt-2 mb-8 leading-snug">
+        웨스 앤더슨이 만드는 영화는 어떤가요?
+      </h3>
+
+      <div class="border-t-2 border-b-2 border-dashed border-[var(--wes-dark)] py-10 px-6 md:px-12 my-6">
+        <p class="text-base sm:text-lg md:text-xl leading-relaxed text-[var(--wes-dark)] font-medium">
+          웨스 앤더슨의 스크린은 <strong>완벽한 대칭 구도</strong>와 정교한 <strong>파스텔 톤 색채</strong>가 결합하여 마치 아름답게 세공된 동화 속 오르골 진열 상자 같은 아날로그 미학을 선사합니다. <br class="hidden md:block"><br class="hidden md:block">
+          사랑스럽고 정갈한 비주얼 이면에 숨겨진 인물들의 <strong>현실적인 상실과 고독</strong>이라는 메시지는 오히려 씁쓸하면서도 사랑 가득한 깊은 여운을 자아냅니다.
+        </p>
+      </div>
+
+      <div class="flex justify-center space-x-2 mt-8">
+        <div class="w-3 h-3 rounded-full bg-[var(--mendis-pink)]"></div>
+        <div class="w-3 h-3 rounded-full bg-[var(--grand-blue)]"></div>
+        <div class="w-3 h-3 rounded-full bg-[var(--darjeeling-yellow)]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: CHARM CARDS -->
+  <section id="appeal" class="py-20 px-4 md:px-8 bg-[var(--grand-blue-light)] border-b-4 border-[var(--wes-dark)] relative transition-colors duration-700">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Symmetrical Top Control Bar for Color Switching -->
+      <div class="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-dashed border-[var(--wes-dark)] pb-6 gap-4">
+        
+        <!-- Left: Interactive Theme Switcher (Request 2 implemented) -->
+        <div class="flex items-center space-x-3 bg-[var(--darjeeling-cream)] px-4 py-2.5 rounded-lg border-2 border-[var(--wes-dark)] wes-shadow-sm select-none">
+          <span class="text-xs font-bold text-[var(--wes-dark)] flex items-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-[var(--wes-accent)]"></i>
+            클릭하여 컬러 변경 :
+          </span>
+          <div class="flex space-x-2.5 items-center">
+            <!-- Swatch 1: Pastel Blue -->
+            <button onclick="changeSectionTheme('#8FB5CD')" class="w-6 h-6 rounded-full bg-[#8FB5CD] border-2 border-[var(--wes-dark)] hover:scale-110 active:scale-95 transition-all duration-200 shadow-sm" title="Pastel Blue"></button>
+            <!-- Swatch 2: Pastel Pink -->
+            <button onclick="changeSectionTheme('#F5C3C8')" class="w-6 h-6 rounded-full bg-[#F5C3C8] border-2 border-[var(--wes-dark)] hover:scale-110 active:scale-95 transition-all duration-200 shadow-sm" title="Pastel Pink"></button>
+            <!-- Swatch 3: Pastel Yellow/Cream -->
+            <button onclick="changeSectionTheme('#F7DF94')" class="w-6 h-6 rounded-full bg-[#F7DF94] border-2 border-[var(--wes-dark)] hover:scale-110 active:scale-95 transition-all duration-200 shadow-sm" title="Pastel Yellow"></button>
+          </div>
+        </div>
+
+        <div class="text-xs font-bold tracking-wider text-[var(--wes-dark)] flex items-center gap-2 bg-white px-3 py-1.5 rounded-md border border-[var(--wes-dark)] opacity-80">
+          <i class="fa-solid fa-sliders"></i>
+          <span>WES INTERACTIVE PANEL v1.2</span>
+        </div>
+      </div>
+
+      <div class="text-center mb-16">
+        <span class="text-xs tracking-[0.3em] font-extrabold text-white bg-[var(--wes-dark)] px-4 py-1.5 rounded-full uppercase">THE THREE KEY CODES</span>
+        <h3 class="font-title text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--wes-dark)] mt-4">
+          웨스 앤더슨의 거부할 수 없는 3가지 매력
+        </h3>
+        <p class="text-sm sm:text-base text-[var(--wes-dark)] mt-2 font-semibold">카드를 마우스로 올려 반전 미를 감상해보세요!</p>
+      </div>
+
+      <!-- 3 Symmetrical Responsive Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        
+        <!-- CARD 1: COLOR PALETTE -->
+        <div class="flip-card h-[430px] cursor-pointer">
+          <div class="flip-card-inner">
+            <div id="card-color-front" class="flip-card-front bg-[var(--darjeeling-cream)] border-4 border-[var(--wes-dark)] p-6 flex flex-col justify-between text-left wes-shadow transition-all duration-500">
+              <div>
+                <div class="flex justify-between items-start">
+                  <span class="text-4xl font-title text-[var(--wes-accent)] font-bold">01</span>
+                  <i class="fa-solid fa-palette text-2xl text-[var(--wes-accent)]"></i>
+                </div>
+                <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-4 mb-2">
+                  다양한 색의 마법과 <br>비할 데 없는 아름다움
+                </h4>
+                <div class="h-1 w-12 bg-[var(--darjeeling-yellow)] my-3"></div>
+                <p class="text-sm text-[var(--wes-dark)] leading-relaxed opacity-95">
+                  각 영화마다 정의된 고유한 컬러 테마를 통해 배경의 통일감과 동화적인 미학을 구축합니다. 화면 전체의 파스텔 톤 테마를 변경하여 시각적 정취를 직접 체험해보세요.
+                </p>
+              </div>
+              
+              <!-- Refined Footer alignment with layout breaks -->
+              <div class="border-t-2 border-dashed border-[var(--wes-dark)] pt-4 flex justify-between items-center text-[11px] font-bold text-[var(--wes-dark)] text-center w-full">
+                <div class="flex-1">
+                  <span class="block">감각적인 색채</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Vibrant Palette)</span>
+                </div>
+                <div class="px-2 text-[var(--wes-accent)]"><i class="fa-solid fa-arrows-left-right"></i></div>
+                <div class="flex-1">
+                  <span class="block">정돈된 미학</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Symmetric Order)</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card-back bg-[var(--wes-dark)] border-4 border-white p-6 flex flex-col justify-between text-left text-white shadow-xl">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-[var(--darjeeling-yellow)] font-bold">INSIGHT</span>
+                <h4 class="font-title text-xl font-bold mt-2 mb-4 text-[var(--mendis-pink)]">어떻게 구현되나요?</h4>
+                <p class="text-xs sm:text-sm leading-relaxed text-gray-300">
+                  컴퓨터 그래픽(CG) 대신 세트장을 직접 원하는 팬톤(Pantone) 색상의 수성 페인트로 온전히 칠해내는 연극적인 아날로그 방식을 고수합니다. 이 덕분에 디지털이 도저히 흉내 낼 수 없는 극강의 편안하고 따스한 질감을 관객의 눈앞에 구현해 냅니다.
+                </p>
+              </div>
+              <div class="text-xs text-[var(--darjeeling-yellow)] font-bold text-center border-t border-gray-700 pt-3">
+                <i class="fa-solid fa-arrow-rotate-left mr-1"></i> 마우스를 치우면 돌아갑니다
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: ASPECT RATIOS -->
+        <div class="flip-card h-[430px] cursor-pointer">
+          <div class="flip-card-inner">
+            <div class="flip-card-front bg-[var(--darjeeling-cream)] border-4 border-[var(--wes-dark)] p-6 flex flex-col justify-between text-left wes-shadow">
+              <div>
+                <div class="flex justify-between items-start">
+                  <span class="text-4xl font-title text-[var(--wes-accent)] font-bold">02</span>
+                  <i class="fa-solid fa-crop-simple text-2xl text-[var(--wes-accent)]"></i>
+                </div>
+                <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-4 mb-2">
+                  시대의 경계를 넘는 <br>화면비의 유기적 설계
+                </h4>
+                <div class="h-1 w-12 bg-[var(--grand-blue)] my-3"></div>
+                <p class="text-sm text-[var(--wes-dark)] leading-relaxed opacity-95">
+                  영화 속에 한 가지 화면비만 써야 한다는 편견을 부숩니다. '그랜드 부다페스트 호텔'에서는 1.37:1(1930년대 클래식 아카데미 비율), 1.85:1(1960년대 와이드 비율), 2.35:1(1980년대 시네마스코프) 등 세 가지 화면비가 시대를 상징하며 변주됩니다.
+                </p>
+              </div>
+              
+              <!-- Refined Footer alignment with layout breaks -->
+              <div class="border-t-2 border-dashed border-[var(--wes-dark)] pt-4 flex justify-between items-center text-[11px] font-bold text-[var(--wes-dark)] text-center w-full">
+                <div class="flex-1">
+                  <span class="block">클래식 비율</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Academy Standard)</span>
+                </div>
+                <div class="px-2 text-[var(--wes-accent)]"><i class="fa-solid fa-arrows-left-right"></i></div>
+                <div class="flex-1">
+                  <span class="block">파노라마 뷰</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Widescope View)</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card-back bg-[var(--wes-dark)] border-4 border-white p-6 flex flex-col justify-between text-left text-white shadow-xl">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-[var(--darjeeling-yellow)] font-bold">INSIGHT</span>
+                <h4 class="font-title text-xl font-bold mt-2 mb-4 text-[var(--mendis-pink)]">어떻게 구현되나요?</h4>
+                <p class="text-xs sm:text-sm leading-relaxed text-gray-300">
+                  단순한 멋이 아닌 서사의 변화를 위한 문법입니다. 시대를 상징적으로 반영하는 프레임의 왜곡과 물리적 크기의 대조는, 관객이 과거 회상 장면에 더 깊고 입체적으로 빠져들게 만드는 아주 기막힌 시간 여행 가이드 장치가 됩니다.
+                </p>
+              </div>
+              <div class="text-xs text-[var(--darjeeling-yellow)] font-bold text-center border-t border-gray-700 pt-3">
+                <i class="fa-solid fa-arrow-rotate-left mr-1"></i> 마우스를 치우면 돌아갑니다
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: DARK TALE VS FAIRYTALE -->
+        <div class="flip-card h-[430px] cursor-pointer">
+          <div class="flip-card-inner">
+            <div class="flip-card-front bg-[var(--darjeeling-cream)] border-4 border-[var(--wes-dark)] p-6 flex flex-col justify-between text-left wes-shadow">
+              <div>
+                <div class="flex justify-between items-start">
+                  <span class="text-4xl font-title text-[var(--wes-accent)] font-bold">03</span>
+                  <i class="fa-solid fa-masks-theater text-2xl text-[var(--wes-accent)]"></i>
+                </div>
+                <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-4 mb-2">
+                  동화적 미감 이면에 감춘 <br>달콤쌉싸름한 현실적 반전
+                </h4>
+                <div class="h-1 w-12 bg-[var(--wes-accent)] my-3"></div>
+                <p class="text-sm text-[var(--wes-dark)] leading-relaxed opacity-95">
+                  비주얼은 영락없이 알록달록한 아동용 인형극이나 마시멜로 상자 같지만, 서사 속에서는 전쟁, 가족의 해체, 냉소주의, 폭력, 우울 등 매우 현실적이고 어두운 주제들을 무표정하고 시니컬하게 읊조리며 짜릿한 지적 긴장감을 남깁니다.
+                </p>
+              </div>
+              
+              <!-- Refined Footer alignment with layout breaks -->
+              <div class="border-t-2 border-dashed border-[var(--wes-dark)] pt-4 flex justify-between items-center text-[11px] font-bold text-[var(--wes-dark)] text-center w-full">
+                <div class="flex-1">
+                  <span class="block">동화 같은 미감</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Candy Sweet Exterior)</span>
+                </div>
+                <div class="px-2 text-[var(--wes-accent)]"><i class="fa-solid fa-arrows-left-right"></i></div>
+                <div class="flex-1">
+                  <span class="block">씁쓸한 인간 내면</span>
+                  <span class="block text-[9px] opacity-75 font-normal uppercase mt-0.5">(Deep Dark Core)</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card-back bg-[var(--wes-dark)] border-4 border-white p-6 flex flex-col justify-between text-left text-white shadow-xl">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-[var(--darjeeling-yellow)] font-bold">INSIGHT</span>
+                <h4 class="font-title text-xl font-bold mt-2 mb-4 text-[var(--mendis-pink)]">어떻게 구현되나요?</h4>
+                <p class="text-xs sm:text-sm leading-relaxed text-gray-300">
+                  웨스 앤더슨은 현실의 잔혹함을 예쁘게 미화하려 하지 않습니다. 오히려 감정을 지극히 절제한 인형의 집 내부 같은 세트 안에서 상실을 겪는 인물들을 관조적으로 바라보게 만듦으로써 극대화된 서글픔과 한 줄기 애틋함을 역설적으로 느끼게 합니다.
+                </p>
+              </div>
+              <div class="text-xs text-[var(--darjeeling-yellow)] font-bold text-center border-t border-gray-700 pt-3">
+                <i class="fa-solid fa-arrow-rotate-left mr-1"></i> 마우스를 치우면 돌아갑니다
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: GALLERY (CINEMATIC MOMENTS) -->
+  <section id="gallery" class="py-20 px-4 md:px-8 bg-[var(--darjeeling-cream)] border-b-4 border-[var(--wes-dark)] text-center">
+    <div class="max-w-6xl mx-auto">
+      
+      <span class="text-xs tracking-[0.3em] font-extrabold text-[var(--wes-accent)] uppercase">CINEMATIC FRAME SIMULATOR</span>
+      <h3 class="font-title text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--wes-dark)] mt-2">
+        시네마틱 모먼츠 : 완벽한 대칭과 구도
+      </h3>
+      <p class="max-w-xl mx-auto text-sm text-[var(--wes-dark)] opacity-80 mt-3 mb-10 font-medium">
+        아래의 화면비 버튼을 눌러보세요. 프레임의 대칭 구도가 서로 다른 렌즈와 아카데미 규격 속에서 어떻게 유기적으로 살아숨쉬는지 인터랙티브하게 체감할 수 있습니다.
+      </p>
+
+      <!-- Aspect Ratio Switcher Buttons -->
+      <div class="inline-flex flex-wrap justify-center gap-3 p-2 bg-[var(--wes-dark)] rounded-lg wes-shadow-sm mb-12">
+        <button onclick="changeFrameRatio('academy')" id="btn-academy" class="ratio-btn px-4 py-2 text-xs md:text-sm font-bold rounded transition-all duration-300 bg-[var(--mendis-pink)] text-[var(--wes-dark)]">
+          1.37 : 1 (클래식 아카데미 빈티지)
+        </button>
+        <button onclick="changeFrameRatio('widescreen')" id="btn-widescreen" class="ratio-btn px-4 py-2 text-xs md:text-sm font-bold rounded transition-all duration-300 text-gray-400 hover:text-white">
+          1.85 : 1 (비스타 와이드 비전)
+        </button>
+        <button onclick="changeFrameRatio('cinemascope')" id="btn-cinemascope" class="ratio-btn px-4 py-2 text-xs md:text-sm font-bold rounded transition-all duration-300 text-gray-400 hover:text-white">
+          2.39 : 1 (시네마스코프 파노라마)
+        </button>
+      </div>
+
+      <!-- Symmetrical Gallery Showcase Container -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 justify-items-center">
+        
+        <!-- Frame 1 (The Grand Budapest Hotel - Animated SVG) -->
+        <div class="w-full max-w-lg">
+          <div id="frame-container-1" class="aspect-transition relative mx-auto bg-[#FBD0D3] border-4 border-[var(--wes-dark)] wes-shadow overflow-hidden rounded shadow-inner" style="aspect-ratio: 1.37 / 1; max-width: 420px;">
+            <svg class="w-full h-full object-cover" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none">
+              <rect width="400" height="300" fill="#FAD1D3" />
+              <path d="M-50,300 L120,130 L200,190 L280,130 L450,300 Z" fill="#ECA1A5" />
+              <path d="M0,300 L200,100 L400,300 Z" fill="#E08E93" opacity="0.6"/>
+              
+              <g fill="#FFFFFF" opacity="0.8">
+                <circle class="snow-particle" cx="40" cy="20" r="2.5" style="animation-delay: 0.1s; animation-duration: 9s;"/>
+                <circle class="snow-particle" cx="120" cy="50" r="1.5" style="animation-delay: 1.5s; animation-duration: 7s;"/>
+                <circle class="snow-particle" cx="190" cy="30" r="2.1" style="animation-delay: 0.5s; animation-duration: 11s;"/>
+                <circle class="snow-particle" cx="280" cy="70" r="1.8" style="animation-delay: 3s; animation-duration: 8s;"/>
+                <circle class="snow-particle" cx="350" cy="10" r="2.3" style="animation-delay: 2.2s; animation-duration: 10s;"/>
+              </g>
+
+              <g fill="#C56A70">
+                <polygon points="50,300 65,260 80,300"/>
+                <polygon points="100,300 112,270 125,300"/>
+                <polygon points="275,300 288,270 300,300"/>
+                <polygon points="320,300 335,260 350,300"/>
+              </g>
+
+              <line x1="80" y1="230" x2="320" y2="95" stroke="#2C1E21" stroke-width="1.5" stroke-dasharray="2,2"/>
+              <g class="cable-car">
+                <rect x="140" y="180" width="18" height="12" rx="2" fill="#E5AD35" stroke="#2C1E21" stroke-width="1.5"/>
+                <line x1="149" y1="180" x2="149" y2="173" stroke="#2C1E21" stroke-width="1.5"/>
+                <line x1="140" y1="186" x2="158" y2="186" stroke="#2C1E21" stroke-width="1"/>
+                <circle cx="145" cy="186" r="1.5" fill="#FAF6EE"/>
+                <circle cx="153" cy="186" r="1.5" fill="#FAF6EE"/>
+              </g>
+
+              <rect x="110" y="140" width="180" height="160" fill="#F4C2C6" stroke="#2C1E21" stroke-width="2"/>
+              <rect x="160" y="100" width="80" height="200" fill="#ECADB2" stroke="#2C1E21" stroke-width="2"/>
+              
+              <polygon points="160,100 170,75 230,75 240,100" fill="#3E6B89" stroke="#2C1E21" stroke-width="2"/>
+              <polygon points="110,140 120,125 155,125 160,140" fill="#3E6B89" stroke="#2C1E21" stroke-width="2"/>
+              <polygon points="240,140 245,125 280,125 290,140" fill="#3E6B89" stroke="#2C1E21" stroke-width="2"/>
+              
+              <line x1="200" y1="75" x2="200" y2="55" stroke="#2C1E21" stroke-width="2"/>
+              <polygon points="200,55 215,60 200,65" fill="#C84B31" stroke="#2C1E21" stroke-width="1"/>
+
+              <g fill="#FAF6EE" stroke="#2C1E21" stroke-width="1">
+                <rect class="hotel-window" x="180" y="115" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:0.5s;" x="212" y="115" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:1.2s;" x="180" y="140" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:0.2s;" x="212" y="140" width="8" height="12" rx="1"/>
+                
+                <rect class="hotel-window" style="animation-delay:0.8s;" x="125" y="160" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:0.8s;" x="267" y="160" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:0.3s;" x="145" y="160" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:0.3s;" x="247" y="160" width="8" height="12" rx="1"/>
+                
+                <rect class="hotel-window" style="animation-delay:1.5s;" x="125" y="190" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:1.5s;" x="267" y="190" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:1s;" x="145" y="190" width="8" height="12" rx="1"/>
+                <rect class="hotel-window" style="animation-delay:1s;" x="247" y="190" width="8" height="12" rx="1"/>
+              </g>
+
+              <path d="M185,300 C185,280 215,280 215,300 Z" fill="#2C1E21"/>
+              <circle cx="200" cy="275" r="3" fill="#E5AD35"/>
+            </svg>
+
+            <div class="absolute inset-0 border border-dashed border-white border-opacity-30 pointer-events-none flex justify-center items-center">
+              <div class="w-[1px] h-full bg-white bg-opacity-20"></div>
+              <div class="h-[1px] w-full bg-white bg-opacity-20 absolute"></div>
+            </div>
+          </div>
+          <p class="text-xs text-[var(--wes-dark)] mt-3 italic font-semibold">"그랜드 부다페스트 호텔 - 완벽한 분홍빛 상칭성의 미학"</p>
+        </div>
+
+        <!-- Frame 2 (The Darjeeling Limited - Animated SVG) -->
+        <div class="w-full max-w-lg">
+          <div id="frame-container-2" class="aspect-transition relative mx-auto bg-[#F7CF5F] border-4 border-[var(--wes-dark)] wes-shadow overflow-hidden rounded shadow-inner" style="aspect-ratio: 1.37 / 1; max-width: 420px;">
+            <svg class="w-full h-full object-cover" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none">
+              <rect width="400" height="300" fill="#FCDA77" />
+              <circle cx="200" cy="110" r="35" fill="#F8A056" opacity="0.7"/>
+
+              <g class="parallax-mountains">
+                <path d="M-400,200 L-300,140 L-200,180 L-100,120 L0,180 L100,120 L200,180 L300,140 L400,200 L500,140 L600,180 L700,120 L800,180 Z" fill="#D38A4F" />
+              </g>
+
+              <g class="parallax-hills">
+                <path d="M-400,230 Q-300,180 -200,210 T0,210 T200,210 T400,210 T600,210 T800,210 L800,300 L-400,300 Z" fill="#B36E39" />
+              </g>
+
+              <rect x="0" y="240" width="400" height="15" fill="#845229"/>
+              <line x1="0" y1="240" x2="400" y2="240" stroke="#2C1E21" stroke-width="2.5"/>
+              <line x1="0" y1="246" x2="400" y2="246" stroke="#2C1E21" stroke-width="1.5"/>
+              <line x1="20" y1="240" x2="20" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="60" y1="240" x2="60" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="100" y1="240" x2="100" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="140" y1="240" x2="140" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="180" y1="240" x2="180" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="220" y1="240" x2="220" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="260" y1="240" x2="260" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="300" y1="240" x2="300" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="340" y1="240" x2="340" y2="255" stroke="#2C1E21" stroke-width="2"/>
+              <line x1="380" y1="240" x2="380" y2="255" stroke="#2C1E21" stroke-width="2"/>
+
+              <g class="moving-train">
+                <circle class="steam-puff-1" cx="130" cy="140" r="8" fill="#FAF6EE" />
+                <circle class="steam-puff-2" cx="130" cy="140" r="6" fill="#FAF6EE" />
+                <circle class="steam-puff-3" cx="130" cy="140" r="7" fill="#FAF6EE" />
+
+                <rect x="110" y="165" width="60" height="60" fill="#3E6B89" stroke="#2C1E21" stroke-width="2" rx="1"/>
+                <rect x="135" y="150" width="10" height="20" fill="#C84B31" stroke="#2C1E21" stroke-width="2"/> 
+                <rect x="150" y="170" width="15" height="15" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/> 
+                <circle cx="157" cy="177" r="2" fill="#E5AD35"/>
+
+                <circle cx="130" cy="195" r="7" fill="#E5AD35" stroke="#2C1E21" stroke-width="1.5"/>
+                <line x1="125" y1="195" x2="135" y2="195" stroke="#2C1E21" stroke-width="1.5"/>
+
+                <rect x="175" y="172" width="75" height="53" fill="#3E6B89" stroke="#2C1E21" stroke-width="2" rx="1"/>
+                <rect x="175" y="195" width="75" height="5" fill="#E5AD35" stroke="#2C1E21" stroke-width="1"/>
+                <rect x="185" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+                <rect x="205" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+                <rect x="225" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+
+                <rect x="255" y="172" width="75" height="53" fill="#3E6B89" stroke="#2C1E21" stroke-width="2" rx="1"/>
+                <rect x="255" y="195" width="75" height="5" fill="#E5AD35" stroke="#2C1E21" stroke-width="1"/>
+                <rect x="265" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+                <rect x="285" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+                <rect x="305" y="178" width="12" height="12" rx="1" fill="#FAF6EE" stroke="#2C1E21" stroke-width="1.5"/>
+
+                <line x1="170" y1="210" x2="175" y2="210" stroke="#2C1E21" stroke-width="3"/>
+                <line x1="250" y1="210" x2="255" y2="210" stroke="#2C1E21" stroke-width="3"/>
+
+                <circle cx="120" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="140" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="160" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="190" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="215" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="235" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="270" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="295" cy="230" r="6" fill="#2C1E21"/>
+                <circle cx="315" cy="230" r="6" fill="#2C1E21"/>
+              </g>
+            </svg>
+
+            <div class="absolute inset-0 border border-dashed border-white border-opacity-30 pointer-events-none flex justify-center items-center">
+              <div class="w-[1px] h-full bg-white bg-opacity-20"></div>
+              <div class="h-[1px] w-full bg-white bg-opacity-20 absolute"></div>
+            </div>
+          </div>
+          <p class="text-xs text-[var(--wes-dark)] mt-3 italic font-semibold">"다즐링 주식회사 - 이국적인 인도 사막을 달리는 대칭 구도의 기차"</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: CABINET OF CURIOSITIES (호기심의 방) -->
+  <section id="cabinet" class="py-20 px-4 md:px-8 bg-[var(--mendis-pink)] border-b-4 border-[var(--wes-dark)] text-center relative">
+    <div class="max-w-6xl mx-auto">
+      
+      <span class="text-xs tracking-[0.3em] font-extrabold text-[var(--wes-dark)] bg-white px-3 py-1 border-2 border-[var(--wes-dark)] uppercase">CURATED COLLECTION TRUNK</span>
+      <h3 class="font-title text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--wes-dark)] mt-4">
+        호기심의 방 : 시네마 소품 진열장
+      </h3>
+      
+      <!-- Subtitle with high readability & retro interactive guide tag -->
+      <div class="max-w-2xl mx-auto mt-4 mb-12 flex flex-col items-center">
+        <p class="text-sm md:text-base text-[var(--wes-dark)] font-bold leading-relaxed tracking-tight">
+          웨스 앤더슨 영화의 아이덴티티를 장식하는 소품들을 모아둔 가상의 아날로그 빈티지 장식장입니다.
+        </p>
+        
+        <!-- Optimized Guide Tag for Perfect Sizing and One Line Alignment -->
+        <div class="mt-4 bg-white bg-opacity-95 px-4 py-2 rounded-full border-2 border-[var(--wes-dark)] text-[9px] sm:text-[10px] md:text-[11px] font-bold tracking-wider text-[var(--wes-dark)] flex items-center gap-1.5 shadow-sm max-w-full whitespace-nowrap overflow-x-auto">
+          <span class="text-[#3E6B89] flex items-center gap-1 shrink-0 font-black">
+            <i class="fa-solid fa-circle-play animate-pulse"></i> INTERACTIVE GUIDE:
+          </span>
+          <span class="leading-normal">진열장의 <span class="text-[#C27800] font-black">진기한 소품을 직접 클릭</span>하여 영화 속에 아련하게 숨겨진 이야기를 해제해 보세요.</span>
+        </div>
+      </div>
+
+      <!-- Symmetrical Retro Cabinet & Info Box -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch px-4">
+        
+        <div class="lg:col-span-7 bg-[var(--darjeeling-cream)] border-8 border-[var(--wes-dark)] rounded-xl p-6 md:p-8 wes-shadow flex flex-col justify-between relative">
+          <div class="absolute inset-2 border-2 border-dashed border-[var(--wes-dark)] opacity-35 pointer-events-none rounded-lg"></div>
+
+          <!-- Shelf Row 1 -->
+          <div class="mb-8">
+            <div class="flex justify-around items-end h-28 border-b-4 border-[var(--wes-dark)] pb-1 px-4 relative z-10">
+              
+              <div onclick="selectCabinetItem('mendl')" id="cabinet-mendl" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <rect x="10" y="20" width="40" height="35" fill="#F3A1A9" stroke="#2C1E21" stroke-width="3" rx="2"/>
+                  <rect x="5" y="15" width="50" height="8" fill="#E48E97" stroke="#2C1E21" stroke-width="3" rx="2"/>
+                  <rect x="27" y="15" width="6" height="40" fill="#4A7C8C" stroke="#2C1E21" stroke-width="1.5"/>
+                  <circle cx="30" cy="15" r="5" fill="#4A7C8C" stroke="#2C1E21" stroke-width="1.5"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">멘들스 상자</span>
+              </div>
+
+              <div onclick="selectCabinetItem('beanie')" id="cabinet-beanie" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <path d="M15,45 C15,20 45,20 45,45 Z" fill="#C84B31" stroke="#2C1E21" stroke-width="3"/>
+                  <rect x="10" y="42" width="40" height="8" fill="#A83923" stroke="#2C1E21" stroke-width="3" rx="3"/>
+                  <circle cx="30" cy="20" r="4" fill="#C84B31" stroke="#2C1E21" stroke-width="3"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">빨간 비니</span>
+              </div>
+
+              <div onclick="selectCabinetItem('binoculars')" id="cabinet-binoculars" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <rect x="15" y="15" width="10" height="30" fill="#3E6B89" stroke="#2C1E21" stroke-width="3" rx="3"/>
+                  <rect x="35" y="15" width="10" height="30" fill="#3E6B89" stroke="#2C1E21" stroke-width="3" rx="3"/>
+                  <rect x="23" y="25" width="14" height="6" fill="#FAF6EE" stroke="#2C1E21" stroke-width="3"/>
+                  <rect x="11" y="45" width="18" height="5" fill="#E5AD35" stroke="#2C1E21" stroke-width="2" rx="1"/>
+                  <rect x="31" y="45" width="18" height="5" fill="#E5AD35" stroke="#2C1E21" stroke-width="2" rx="1"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">망원경</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Shelf Row 2 -->
+          <div>
+            <div class="flex justify-around items-end h-28 border-b-4 border-[var(--wes-dark)] pb-1 px-4 relative z-10">
+              
+              <div onclick="selectCabinetItem('record')" id="cabinet-record" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <rect x="10" y="22" width="40" height="28" fill="#E5AD35" stroke="#2C1E21" stroke-width="3" rx="3"/>
+                  <circle cx="30" cy="36" r="10" fill="#2C1E21" stroke="#FAF6EE" stroke-width="2"/>
+                  <path d="M42,26 L33,36" stroke="#2C1E21" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">턴테이블</span>
+              </div>
+
+              <div onclick="selectCabinetItem('badge')" id="cabinet-badge" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <path d="M15,15 L45,15 L45,35 L30,50 L15,35 Z" fill="#E5AD35" stroke="#2C1E21" stroke-width="3" rx="1"/>
+                  <circle cx="30" cy="28" r="6" fill="#3E6B89" stroke="#2C1E21" stroke-width="2"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">보이스카웃 뱃지</span>
+              </div>
+
+              <div onclick="selectCabinetItem('cider')" id="cabinet-cider" class="cabinet-item cursor-pointer flex flex-col items-center">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="w-14 h-14 md:w-16 md:h-16">
+                  <rect x="22" y="10" width="16" height="38" fill="#7FA99B" stroke="#2C1E21" stroke-width="3" rx="4"/>
+                  <rect x="26" y="5" width="8" height="6" fill="#FAF6EE" stroke="#2C1E21" stroke-width="2"/>
+                  <rect x="20" y="24" width="20" height="12" fill="#E5AD35" stroke="#2C1E21" stroke-width="2"/>
+                </svg>
+                <span class="text-[10px] md:text-xs font-bold text-[var(--wes-dark)] mt-2">사과 사이다</span>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="text-[10px] tracking-wider uppercase text-[var(--wes-dark)] font-bold opacity-60 text-center mt-6">
+            Symmetrical curios cabinet drawer v1.0
+          </p>
+        </div>
+
+        <!-- Detail Display Sheet (Center Aligned, High Contrast & Spacious Typo) -->
+        <div class="lg:col-span-5 bg-[var(--darjeeling-cream)] border-4 border-[var(--wes-dark)] rounded-xl p-6 md:p-8 wes-shadow flex flex-col justify-between text-center items-center relative min-h-[380px]">
+          
+          <div id="cabinet-detail-content" class="w-full flex flex-col items-center">
+            <div id="detail-welcome" class="flex flex-col items-center justify-center text-center h-full py-16">
+              <i class="fa-solid fa-hand-pointer text-4xl text-[var(--wes-accent)] mb-4 animate-bounce"></i>
+              <h4 class="font-title text-xl font-bold mb-3 text-[var(--wes-dark)]">진열장을 조사해보세요</h4>
+              <p class="text-xs text-[#2C1A11] opacity-80 leading-[1.7] max-w-xs mx-auto">
+                좌측의 귀여운 아이콘이나 레이블을 클릭해 주시면, 그 물건이 가리키고 있는 아련하고 사랑스러운 이야기의 뚜껑이 열립니다.
+              </p>
+            </div>
+
+            <!-- Item-specific descriptive boxes (Refactored for readability & symmetry) -->
+            <div id="detail-mendl" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-[var(--wes-accent)] text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">THE GRAND BUDAPEST HOTEL</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">러블리한 멘들스 케이크 박스</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "이 빵집에는 사랑스러운 분홍빛 종이상자에 정성스러운 수공예 리본을 단 '코르티잔 오 쇼콜라'라는 특별한 케이크를 만듭니다."
+              </p>
+              <div class="retro-quote-box">
+                "이 아름답고 빈틈없는 분홍빛 포장 상자는 사실 전쟁과 강제 수용이라는 어둡고 차가운 시대상에 정면으로 맞서는 사랑스러움의 무기입니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-sparkles text-[var(--darjeeling-yellow)] mr-1"></i> 메인 상징: 세상이 아무리 잔인하게 변할지라도 우아함과 사랑을 지켜내는 태도.
+              </p>
+            </div>
+
+            <div id="detail-beanie" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-[var(--grand-blue)] text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">THE LIFE AQUATIC WITH STEVE ZISSOU</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">스티브 지소의 상징적인 빨간 비니</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "위대한 해양 탐험가 스티브 지소와 그의 선원들은 늘 파란색 유니폼 위에 머리가 쨍하게 도드라지는 정열적인 스칼렛 레드 비니를 씁니다."
+              </p>
+              <div class="retro-quote-box" style="border-color: var(--wes-accent); background-color: rgba(200, 75, 49, 0.08);">
+                "지나간 과거의 젊은 영광에 집착하는 외로운 남자의 슬픔과 고독, 그리고 바다 너머의 존재들을 유쾌하게 조우하고자 하는 갈망을 의미합니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-water text-[var(--grand-blue)] mr-1"></i> 메인 상징: 끝없는 상실을 맞닥뜨린 남자들의 미워할 수 없는 소년 같은 기만.
+              </p>
+            </div>
+
+            <div id="detail-binoculars" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-[var(--darjeeling-yellow)] text-[var(--wes-dark)] font-bold px-3 py-1 rounded-full uppercase tracking-wider">MOONRISE KINGDOM</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">수지의 소중한 노란색 망원경</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "12살 소녀 수지는 가방 안에 자기가 가장 좋아하는 환상 소설책 세 권과 함께 망원경을 늘 챙겨서 소지하고 다닙니다."
+              </p>
+              <div class="retro-quote-box" style="border-color: var(--darjeeling-yellow); background-color: rgba(229, 173, 53, 0.08);">
+                "수지는 망원경을 통해 세상을 보면 '모든 사물이 더 가까이 오고, 그것들이 더 신기하고 다정해진다'고 속삭입니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-eye text-teal-700 mr-1"></i> 메인 상징: 이해해 주지 않는 불친절한 세상을 멀찍이 밀쳐두고 고유함을 바라보고 싶은 갈증.
+              </p>
+            </div>
+
+            <div id="detail-record" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-[var(--mendis-pink-dark)] text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">MOONRISE KINGDOM</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">프랑수아즈 아르디의 아날로그 턴테이블</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "부모와 고향을 뒤로하고 탈출한 두 꼬마 연인은 외딴 바닷가 모래사장 위에서 이 빈티지 휴대용 플레이어를 틀고 프랑스 팝송에 맞춰 춤을 춥니다."
+              </p>
+              <div class="retro-quote-box">
+                "바늘 끝이 턴테이블 판에 닿는 사각거리는 소리는, 사랑에 빠져 가장 완전하고 자유로운 유토피아를 맞닥뜨린 아이들의 반짝거리는 순간입니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-music text-[var(--wes-accent)] mr-1"></i> 메인 상징: 세상에 오로지 우리 단 둘뿐인 평화로운 도피처.
+              </p>
+            </div>
+
+            <div id="detail-badge" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-[var(--wes-dark)] text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">MOONRISE KINGDOM</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">카키 스카우트 단원의 영광스러운 배지</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "고아 소년 샘은 카키 스카우트 단원 중에서 야생 생존 능력만큼은 단연 1위를 자부하는 매우 섬세하고 총명한 대원입니다."
+              </p>
+              <div class="retro-quote-box" style="border-color: var(--wes-dark); background-color: rgba(44, 30, 33, 0.05);">
+                "아기자기한 훈장과 손수 지은 천막 장식은 질서 정연한 세계 속 어른들의 우스꽝스러우면서도 왠지 측은해 보이는 규칙성을 역설합니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-compass text-amber-700 mr-1"></i> 메인 상징: 위태로운 유년 시절에 세우고 싶은 자신만의 작은 존엄과 질서.
+              </p>
+            </div>
+
+            <div id="detail-cider" class="hidden flex flex-col items-center w-full">
+              <span class="text-[10px] bg-emerald-700 text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">FANTASTIC MR. FOX</span>
+              <h4 class="font-title text-2xl font-bold text-[var(--wes-dark)] mt-3 mb-3">달콤하고 뜨거웠던 황금색 사과 사이다</h4>
+              <p class="text-sm leading-[1.75] text-[#2C1A11] tracking-[-0.02em] mb-4 font-medium">
+                "미스터 폭스의 동지 쥐 빈(Bean)이 밤낮으로 소중히 비축해둔 비밀 사과원 산의 사과즙 진액은, 한 모금만 넘겨도 목을 지글지글 타오르게 합니다."
+              </p>
+              <div class="retro-quote-box" style="border-color: #047857; background-color: rgba(4, 120, 87, 0.08);">
+                "그저 예쁜 만화영화처럼 보이는 '판타스틱 미스터 폭스'의 속사정은 사실 야성을 상실한 어른들의 서글픈 저항을 향해 유쾌한 토스트를 건넵니다."
+              </div>
+              <p class="text-xs font-semibold text-gray-700 leading-relaxed mt-1">
+                <i class="fa-solid fa-lemon text-amber-600 mr-1"></i> 메인 상징: 질식할 것 같은 규격의 아파트 일상에 갇힌 동물들이 잃지 않는 매서운 야성.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="mt-8 border-t border-dashed border-[var(--wes-dark)] pt-4 flex items-center justify-between text-[11px] text-[var(--wes-dark)] opacity-70 w-full">
+            <span class="tracking-[0.12em] uppercase font-bold">Wes Anderson Collector's Kit</span>
+            <span id="cabinet-item-index" class="font-bold">Item: NOT SELECTED</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER: Symmetrical, Warm Dev Message -->
+  <footer class="py-16 px-4 md:px-8 bg-[var(--wes-dark)] text-[var(--darjeeling-cream)] text-center relative">
+    <div class="max-w-4xl mx-auto flex flex-col items-center">
+      
+      <div class="w-16 h-16 rounded-full border-2 border-[var(--mendis-pink)] flex items-center justify-center mb-6">
+        <span class="font-title text-2xl font-bold text-[var(--mendis-pink)]">W</span>
+      </div>
+
+      <!-- Symmetrical Warm Letter with perfect word-wrapping (Request 1 implemented) -->
+      <h4 class="font-title text-xl sm:text-2xl font-bold mb-4 text-[var(--mendis-pink)]">
+        " 제 눈부신 조각의 취향 상자를 열어주셔서 고맙습니다. "
+      </h4>
+      <p class="text-xs sm:text-sm max-w-xl mx-auto leading-relaxed text-gray-300 font-light opacity-90 mb-8" style="word-break: keep-all;">
+        어쩌면 고단하고 단조로운 현실 속에서도, 구석구석 정교하게 칠해진 따뜻한 색감들과 <br class="hidden md:block">
+        오와 열을 완벽하게 맞춘 대칭의 렌즈를 꺼내드는 것은 우리 인생의 우아함을 지키고 싶어서가 아닐까요?
+      </p>
+
+      <!-- Symmetrical Favorite Movie Button (Request 1 implemented) -->
+      <button onclick="toggleFoxPage(true)" class="bg-[var(--darjeeling-yellow)] hover:bg-yellow-500 text-[var(--wes-dark)] font-bold text-xs px-6 py-4 tracking-widest rounded-lg wes-border transition-all transform active:scale-95 duration-200 uppercase">
+        <i class="fa-solid fa-ticket mr-2"></i> 당신이 가장 좋아하는 웨스 앤더슨 영화는?
+      </button>
+
+      <div class="w-full max-w-md border-t border-gray-700 mt-12 pt-6 text-[11px] text-gray-500 flex justify-between items-center">
+        <span>© 2026 THE WES CINEPHILE. All rights reserved.</span>
+        <span>순수 바닐라 코드로 따스함을 담아 만듦</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- EXTRA INTERACTIVE VIEW: Fantastic Mr. Fox Symmetrical Sub-Page (Request 1 implemented) -->
+  <div id="fox-page" class="fixed inset-0 z-50 bg-[#2F1B10] transition-transform duration-700 ease-in-out translate-y-full overflow-y-auto flex flex-col justify-between py-12 px-4 md:px-8 text-[#FAF6EE]">
+    
+    <!-- Symmetrical Sylvan Background Grid of Fantastic Mr. Fox (Autumnal Pines & Burrows) -->
+    <div class="absolute inset-0 pointer-events-none opacity-10 flex justify-between z-0">
+      <!-- Left Symmetrical Trees -->
+      <svg class="h-full w-48" viewBox="0 0 100 600" fill="none" preserveAspectRatio="none">
+        <polygon points="10,600 30,500 20,500 40,400 30,400 50,250 10,250 0,600" fill="#D37222"/>
+        <polygon points="50,600 70,520 60,520 80,450 70,450 90,320 50,320 40,600" fill="#E5AD35"/>
+      </svg>
+      <!-- Right Symmetrical Trees -->
+      <svg class="h-full w-48" viewBox="0 0 100 600" fill="none" preserveAspectRatio="none">
+        <polygon points="90,600 70,500 80,500 60,400 70,400 50,250 90,250 100,600" fill="#D37222"/>
+        <polygon points="50,600 30,520 40,520 20,450 30,450 10,320 50,320 60,600" fill="#E5AD35"/>
+      </svg>
+    </div>
+
+    <!-- Symmetrical Fine Frame Borders -->
+    <div class="absolute inset-4 md:inset-8 border-2 border-[#D37222] pointer-events-none opacity-30 z-0"></div>
+    <div class="absolute inset-6 md:inset-12 border border-[#E5AD35] pointer-events-none opacity-20 z-0"></div>
+
+    <div class="max-w-xl w-full mx-auto z-10 flex flex-col items-center justify-center my-auto">
+      
+      <!-- Back to Main Button (Symmetrical Header) -->
+      <button onclick="toggleFoxPage(false)" class="mb-10 text-xs font-bold tracking-[0.3em] uppercase text-[#FAF6EE] hover:text-[var(--fox-amber)] flex items-center space-x-2 transition-all group">
+        <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
+        <span>Back to Grand Hotel</span>
+      </button>
+
+      <!-- The Fox Postcard Box -->
+      <div class="bg-[#FBEFDF] text-[var(--fox-dark)] border-4 border-[var(--fox-dark)] rounded-xl p-6 md:p-8 wes-shadow w-full relative">
+        <div class="absolute top-2 left-2 right-2 bottom-2 border border-dashed border-[var(--fox-dark)] opacity-20 pointer-events-none"></div>
+
+        <!-- Symmetrical Sub-Header -->
+        <div class="text-center mb-6">
+          <span class="text-[10px] tracking-[0.3em] font-extrabold text-[#D37222] uppercase bg-[#FAF6EE] px-2 py-1 rounded border border-[var(--fox-dark)]">POSTCARD FROM THE BURROW</span>
+          <h2 class="font-title text-2xl md:text-3xl font-bold mt-3 text-[var(--fox-dark)]">어떤 이야기가 마음속에 사각거렸나요?</h2>
+          <div class="w-16 h-[2px] bg-[#D37222] mx-auto mt-3"></div>
+        </div>
+
+        <!-- Symmetrical Vintage Input Form (Request 1 specified font) -->
+        <form id="fox-movie-form" onsubmit="submitFoxLetter(event)" class="space-y-4 text-left">
+          <div>
+            <label class="block text-xs font-futura tracking-widest uppercase mb-1" for="visitor-name">이름 (Your Name)</label>
+            <input type="text" id="visitor-name" required class="w-full bg-[#FAF6EE] border-2 border-[var(--fox-dark)] rounded px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#D37222]" placeholder="방문자님의 고유한 성함을 알려주세요">
+          </div>
+
+          <div>
+            <label class="block text-xs font-futura tracking-widest uppercase mb-1" for="favorite-choice">가장 좋아하는 영화 (Favorite Film)</label>
+            <select id="favorite-choice" required class="w-full bg-[#FAF6EE] border-2 border-[var(--fox-dark)] rounded px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#D37222]">
+              <option value="" disabled selected>가장 아끼는 영화 한 편을 선택해 주세요</option>
+              <option value="Grand Budapest">그랜드 부다페스트 호텔 (The Grand Budapest Hotel)</option>
+              <option value="Moonrise Kingdom">문라이즈 킹덤 (Moonrise Kingdom)</option>
+              <option value="Fantastic Mr. Fox">판타스틱 Mr. 폭스 (Fantastic Mr. Fox)</option>
+              <option value="The Royal Tenenbaums">로얄 테넌바움 (The Royal Tenenbaums)</option>
+              <option value="Darjeeling Limited">다즐링 주식회사 (The Darjeeling Limited)</option>
+              <option value="Isle of Dogs">개들의 섬 (Isle of Dogs)</option>
+              <option value="Asteroid City">애스터로이드 시티 (Asteroid City)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-futura tracking-widest uppercase mb-1" for="movie-reason">이 영화가 반짝이는 이유 (Why It Sparkles)</label>
+            <textarea id="movie-reason" required rows="4" class="w-full bg-[#FAF6EE] border-2 border-[var(--fox-dark)] rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#D37222] resize-none" placeholder="이 영화가 당신의 동경 상자 속에 머무른 가장 예쁜 이유를 적어주세요."></textarea>
+          </div>
+
+          <!-- Vintage Submit Button -->
+          <button type="submit" class="w-full bg-[#D37222] hover:bg-[#b85b18] text-[#FAF6EE] font-bold text-xs py-3 rounded tracking-widest uppercase border-2 border-[var(--fox-dark)] shadow-md active:scale-95 transition-all flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>숲속의 우체통으로 발송하기</span>
+          </button>
+        </form>
+
+        <!-- Symmetrical Submission Complete State -->
+        <div id="fox-success-view" class="hidden text-center py-8">
+          <div class="w-20 h-20 rounded-full bg-[#FAF6EE] border-4 border-[#D37222] flex items-center justify-center mx-auto mb-4 animate-bounce">
+            <i class="fa-solid fa-envelope-open-text text-3xl text-[#D37222]"></i>
+          </div>
+          <h4 class="font-title text-2xl font-bold mb-2">사락, 메일함에 들어갔습니다!</h4>
+          <p class="text-xs text-[var(--fox-dark)] opacity-80 leading-relaxed max-w-sm mx-auto mb-6" style="word-break: keep-all;">
+            방문자님이 작성해주신 소중한 이야기가 가을바람을 타고 미스터 폭스의 숲속 오르골 도서관에 무사히 도착했습니다. 감사합니다.
+          </p>
+          <button onclick="resetFoxForm()" class="bg-[var(--fox-dark)] hover:bg-black text-[#FAF6EE] font-bold text-xs px-4 py-2 rounded tracking-widest uppercase border border-dashed border-[#FAF6EE]">
+            한 번 더 작성하기
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Symmetrical Footnote -->
+    <div class="text-center text-[10px] tracking-[0.2em] opacity-60 z-10 font-futura mt-8">
+      MR. FOX WILD WOODLANDS LIBRARY v1.0
+    </div>
+
+  </div>
+
+  <!-- Pure JavaScript logic for interaction -->
+  <script>
+    // 1. Toggle Symmetry Overlay Lines
+    function toggleSymmetryLine() {
+      const overlay = document.getElementById('symmetry-line');
+      if (overlay.style.display === 'flex') {
+        overlay.style.display = 'none';
+      } else {
+        overlay.style.display = 'flex';
+      }
+    }
+
+    // 2. Interactive Aspect Ratio Frame Changer (Gallery)
+    const ratioData = {
+      'academy': { ratio: '1.37 / 1', maxWidth: '420px', text: '1.37:1 Academy Standard' },
+      'widescreen': { ratio: '1.85 / 1', maxWidth: '480px', text: '1.85:1 Vista-Vision' },
+      'cinemascope': { ratio: '2.39 / 1', maxWidth: '520px', text: '2.39:1 CinemaScope' }
+    };
+
+    function changeFrameRatio(ratioKey) {
+      const data = ratioData[ratioKey];
+      const frame1 = document.getElementById('frame-container-1');
+      const frame2 = document.getElementById('frame-container-2');
+
+      frame1.style.aspectRatio = data.ratio;
+      frame1.style.maxWidth = data.maxWidth;
+      frame2.style.aspectRatio = data.ratio;
+      frame2.style.maxWidth = data.maxWidth;
+
+      document.querySelectorAll('.ratio-btn').forEach(btn => {
+        btn.classList.remove('bg-[var(--mendis-pink)]', 'text-[var(--wes-dark)]');
+        btn.classList.add('text-gray-400', 'hover:text-white');
+      });
+
+      const activeBtn = document.getElementById('btn-' + ratioKey);
+      activeBtn.classList.remove('text-gray-400', 'hover:text-white');
+      activeBtn.classList.add('bg-[var(--mendis-pink)]', 'text-[var(--wes-dark)]');
+    }
+
+    // 3. Interactive Color Swatch Selector for Section 3 Background
+    function changeSectionTheme(colorHex) {
+      const section = document.getElementById('appeal');
+      if (section) {
+        section.style.backgroundColor = colorHex;
+      }
+    }
+
+    // 4. Mendl's Box Unwrapping Animation triggers on Click/Tap
+    function toggleMendlBoxOpen() {
+      const box = document.getElementById('mendl-interactive-container');
+      const tip = document.getElementById('mendl-tip');
+      
+      if (box.classList.contains('is-open')) {
+        box.classList.remove('is-open');
+        tip.textContent = "🎁 상자를 탭해서 열어보세요!";
+      } else {
+        box.classList.add('is-open');
+        tip.textContent = "🍰 짜잔! 달콤한 3단 핑크 케이크가 정면에 등장했습니다!";
+      }
+    }
+
+    // 5. Cabinet of Curiosities - Interactive Item Selections
+    const cabinetItemsList = ['mendl', 'beanie', 'binoculars', 'record', 'badge', 'cider'];
+
+    function selectCabinetItem(itemId) {
+      document.getElementById('detail-welcome').classList.add('hidden');
+      cabinetItemsList.forEach(id => {
+        document.getElementById('detail-' + id).classList.add('hidden');
+        
+        const itemEl = document.getElementById('cabinet-' + id);
+        if (itemEl) {
+          itemEl.classList.remove('border-2', 'border-dashed', 'border-[var(--wes-accent)]', 'p-1', 'rounded');
+        }
+      });
+
+      const targetDetail = document.getElementById('detail-' + itemId);
+      if (targetDetail) {
+        targetDetail.classList.remove('hidden');
+      }
+
+      const activeEl = document.getElementById('cabinet-' + itemId);
+      if (activeEl) {
+        activeEl.classList.add('border-2', 'border-dashed', 'border-[var(--wes-accent)]', 'p-1', 'rounded');
+      }
+
+      const indexIndicator = document.getElementById('cabinet-item-index');
+      indexIndicator.textContent = `Item: ${itemId.toUpperCase()}`;
+    }
+
+    // 6. Fantastic Mr. Fox Sub-Page View Transition Control (Request 1 implemented)
+    function toggleFoxPage(show) {
+      const page = document.getElementById('fox-page');
+      if (show) {
+        page.classList.remove('translate-y-full');
+        page.classList.add('translate-y-0');
+        document.body.style.overflow = 'hidden'; // Lock back scroll
+      } else {
+        page.classList.remove('translate-y-0');
+        page.classList.add('translate-y-full');
+        document.body.style.overflow = 'auto'; // Unlock back scroll
+      }
+    }
+
+    // 7. Form Submission Animation for Mr. Fox's Symmetrical Mailbox
+    function submitFoxLetter(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('fox-movie-form');
+      const success = document.getElementById('fox-success-view');
+
+      // Simple graceful transitions
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+    }
+
+    function resetFoxForm() {
+      const form = document.getElementById('fox-movie-form');
+      const success = document.getElementById('fox-success-view');
+
+      form.reset();
+      form.classList.remove('hidden');
+      success.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
